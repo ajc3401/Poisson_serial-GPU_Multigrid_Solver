@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32602.215
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MultiGrid", "MultiGrid\MultiGrid.vcxproj", "{5D436B8A-6E62-49F4-8EA6-FF4EC0A060D9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+		Serial|x64 = Serial|x64
+		Serial2|x64 = Serial2|x64
+		Serial3|x64 = Serial3|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5D436B8A-6E62-49F4-8EA6-FF4EC0A060D9}.Debug|x64.ActiveCfg = Debug|x64
+		{5D436B8A-6E62-49F4-8EA6-FF4EC0A060D9}.Debug|x64.Build.0 = Debug|x64
+		{5D436B8A-6E62-49F4-8EA6-FF4EC0A060D9}.Release|x64.ActiveCfg = Release|x64
+		{5D436B8A-6E62-49F4-8EA6-FF4EC0A060D9}.Release|x64.Build.0 = Release|x64
+		{5D436B8A-6E62-49F4-8EA6-FF4EC0A060D9}.Serial|x64.ActiveCfg = Serial|x64
+		{5D436B8A-6E62-49F4-8EA6-FF4EC0A060D9}.Serial|x64.Build.0 = Serial|x64
+		{5D436B8A-6E62-49F4-8EA6-FF4EC0A060D9}.Serial2|x64.ActiveCfg = Serial2|x64
+		{5D436B8A-6E62-49F4-8EA6-FF4EC0A060D9}.Serial2|x64.Build.0 = Serial2|x64
+		{5D436B8A-6E62-49F4-8EA6-FF4EC0A060D9}.Serial3|x64.ActiveCfg = Serial3|x64
+		{5D436B8A-6E62-49F4-8EA6-FF4EC0A060D9}.Serial3|x64.Build.0 = Serial3|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {15496CF5-4CB7-418D-845A-54407F9532C4}
+	EndGlobalSection
+EndGlobal

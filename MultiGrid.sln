@@ -8,6 +8,7 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
+		LinuxSerial|x64 = LinuxSerial|x64
 		Release|x64 = Release|x64
 		Serial|x64 = Serial|x64
 		Serial2|x64 = Serial2|x64
@@ -16,6 +17,8 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{5D436B8A-6E62-49F4-8EA6-FF4EC0A060D9}.Debug|x64.ActiveCfg = Debug|x64
 		{5D436B8A-6E62-49F4-8EA6-FF4EC0A060D9}.Debug|x64.Build.0 = Debug|x64
+		{5D436B8A-6E62-49F4-8EA6-FF4EC0A060D9}.LinuxSerial|x64.ActiveCfg = LinuxSerial|x64
+		{5D436B8A-6E62-49F4-8EA6-FF4EC0A060D9}.LinuxSerial|x64.Build.0 = LinuxSerial|x64
 		{5D436B8A-6E62-49F4-8EA6-FF4EC0A060D9}.Release|x64.ActiveCfg = Release|x64
 		{5D436B8A-6E62-49F4-8EA6-FF4EC0A060D9}.Release|x64.Build.0 = Release|x64
 		{5D436B8A-6E62-49F4-8EA6-FF4EC0A060D9}.Serial|x64.ActiveCfg = Serial|x64

@@ -29,7 +29,7 @@ int main()
 	vec2.sparse_mat_mul(crs_M, vec);
 	vec2.display();*/
 
-	size_t n_rank{ 16 };
+	size_t n_rank{ 8 };
 	size_t n_GS2{ 3 };
 	size_t n_Jac{ 2 };
 	size_t n_outer{ 5 };

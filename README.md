@@ -1,10 +1,44 @@
 # Poisson_serial-GPU_Multigrid_Solver
 A C++/CUDA multigrid solver for Poisson's equation.
 
-The main inspiration was to build a multigrid solver with intuitively written code that utilizes efficient sparse matrix-vector products and other simple mathematical operations to perform the entire calculation.  
-
-As a result, the main solver is built upon a library consisting of a mathematical vector, matrix, and CRS formatted sparse matrix class.  These mathematical object classes are wrappers around a vector class that implemented using CPU operations and one implemented using GPU operations written in CUDA.  Mathematical operations on the CPU are written in custom C++ while those on the GPU are a mixture of custom kernels and 
-
-The smoothing algorithm used was introduced in a recent conference paper<sup>1</sup>
 ## Introduction ##
+The main inspiration was to build a multigrid solver for with intuitively written code that utilizes efficient sparse matrix-vector products (SpMV) and other simple mathematical operations to perform the entire calculation.  
 
+As a result, the main solver is built upon a library consisting of a mathematical vector, matrix, and CRS formatted sparse matrix class.  These mathematical object classes are wrappers around a vector class that implemented using CPU operations and one implemented using GPU operations written in CUDA.  Mathematical operations on the CPU are written in custom C++ while those on the GPU are a mixture of custom kernels and the cuSPARSE and cuBLAS libraries.
+
+The smoothing algorithm used was introduced in a recent conference paper<sup>1</sup> as a two-stage iterative variant of Gauss-Seidel (GS2) based on easily parallizable and much faster SpMV operations instead of a triangular solve method.  GS2 composes of an inner Jacobi-Relaxation sweeps that replace the triangular solve.
+
+Finally, although the code was built to solve Poisson's equation, the multigrid solver can be easily adapted to any PDE to be added in the future.
+
+## Building the code ##
+Currently only a Visual Studio solution file is available but a CMake file will be added in the near future.
+
+## Running the code ##
+An example of the interface is given below
+
+```cpp
+size_t n_rank{ 32 }; \\ typical variable arising in discussions of multigrid; the number of points is one minus n_rank
+	size_t n_GS2{ 3 }; \\ number of applications of the GS2 smoothing algorithm
+	size_t n_Jac{ 2 }; \\ number of inner Jacobi sweeps
+	size_t n_outer{ 5 }; \\ number of outer sweeps
+	size_t dim{ 1 }; \\ dimension of grid
+
+	float pi = std::numbers::pi_v<float>;
+
+	Grid grid(1, std::vector<size_t>{n_rank - 1}); \\ Grid object that hold details of the grid
+
+	Vector<float> seed(grid, 0.0f, 2*pi, "sin"); \\ initial condition (here it's a sine wave with period 2pi
+
+	size_t n_coarsen{ 2 }; \\ number of times grid is coarsened in the multigrid
+	float h{ 0.01 }; \\ grid spacing
+
+	Multigrid<float,PDE_Poisson<float>> multigrid(h, n_rank, dim, seed, n_coarsen, n_GS2, n_Jac, n_outer); \\ initializes multigrid
+	multigrid.Solve(); \\ solves multigrid
+  ```
+
+## References ##
+
+<sup>1</sup>Thomas, Stephen, Ichitaro Yamazaki, Luc Berger-Vergiat, Brian Kelley, Jonathan Hu,
+Paul Mullowney, Sivasankaran Rajamanickam, and Katarzyna Swirydowicz. 2022. TwoStage Gauss-Seidel Preconditioners and Smoothers for Krylov Solvers on a GPU Cluster:
+Preprint. Golden, CO: National Renewable Energy Laboratory. NREL/CP-2C00-80263.
+https://www.nrel.gov/docs/fy22osti/80263.pdf. 

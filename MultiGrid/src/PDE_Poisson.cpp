@@ -1,3 +1,5 @@
+// Copyright 2022, Anthony Cooper, All rights reserved
+
 #include "PDE_Poisson.h"
 #include "Iterative_Methods.h"
 
@@ -6,7 +8,6 @@ PDE_Poisson<T>::PDE_Poisson(Grid _grid) :
 	PDE_Base<T>(_grid)
 {
 	// Make a pointer to A that we can delete after converting to CRS format
-	//std::unique_ptr<Matrix<T>> pA = static_cast<std::unique_ptr<Matrix<T>>>(::operator new(_grid.get_totalnpoints() * sizeof(Matrix<T>)));
 	std::unique_ptr<Matrix<T>> pA(new Matrix<T>(_grid.get_totalnpoints(), _grid.get_totalnpoints()));
 	// TODO: Put this into a class method
 	if (_grid.get_dim() == 1)
@@ -16,8 +17,7 @@ PDE_Poisson<T>::PDE_Poisson(Grid _grid) :
 		pA->set_diagonal(-1.0f, 1);
 		pA->set_diagonal(-1.0f, pA->get_nrow());
 	}
-	//pA->display();
-	//m_f.set_to_number(0.0f);
+	
 	//// TODO: With more complicated initializations, this should also be done by a method
 	//// that takes in a string mapping to a certain initialization
 	//m_v.set_to_number(v_initial);
@@ -37,24 +37,9 @@ void PDE_Poisson<T>::Set_ALUDinv(CRS_Matrix<T>& A, CRS_Matrix<T>& L, CRS_Matrix<
 	A.convert_to_crs(A_dense);
 	// Split A into LUD
 	// Make A L U and D shared pointers?
-	std::cout << "A dense row = ";
-	A_dense.display();
-	std::cout << std::endl;
-	/*Matrix<T> L_dense(A_dense.get_nrow(), A_dense.get_ncol());
-	if (A_dense.get_nrow() == 7)
-		std::cout << "A dense row = " << A_dense.get_nrow() << std::endl;
-	Matrix<T> U_dense(A_dense.get_nrow(), A_dense.get_ncol());
-	Matrix<T> D_dense(A_dense.get_nrow(), A_dense.get_ncol());
-
-	L_dense.get_lower_triangular(A_dense, 0);
-	U_dense.get_upper_triangular(A_dense, 0);
-	D_dense.get_diagonal(A_dense, 0);*/
-	if (A_dense.get_nrow() == 7)
-		std::cout << "A dense row = " << A_dense.get_nrow() << std::endl;
+	
 	std::unique_ptr<Matrix<T>> U_dense(new Matrix<T>(A_dense.get_nrow(), A_dense.get_ncol()));
 	std::unique_ptr<Matrix<T>> L_dense(new Matrix<T>(A_dense.get_nrow(), A_dense.get_ncol()));
-	if (A_dense.get_nrow() == 7)
-		std::cout << "A dense row = " << A_dense.get_nrow() << std::endl;
 	std::unique_ptr<Matrix<T>> D_dense(new Matrix<T>(A_dense.get_nrow(), A_dense.get_ncol()));
 
 

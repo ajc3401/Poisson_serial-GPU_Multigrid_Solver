@@ -1,3 +1,5 @@
+// Copyright 2022, Anthony Cooper, All rights reserved
+
 #ifndef PDE_BASE_H
 #define PDE_BASE_H
 #include "../lib/Vector.h"

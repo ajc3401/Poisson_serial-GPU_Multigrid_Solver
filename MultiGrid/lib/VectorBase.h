@@ -1,3 +1,5 @@
+// Copyright 2022, Anthony Cooper, All rights reserved
+
 #ifndef VECTORBASE_H
 #define VECTORBASE_H
 #include <assert.h>

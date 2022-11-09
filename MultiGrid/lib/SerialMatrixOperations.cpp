@@ -1,3 +1,5 @@
+// Copyright 2022, Anthony Cooper, All rights reserved
+
 #include "SerialMatrixOperations.h"
 #include <assert.h>
 #include <vector>

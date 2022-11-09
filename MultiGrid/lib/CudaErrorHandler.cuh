@@ -1,3 +1,5 @@
+// Reference: https://github.com/CodedK/CUDA-by-Example-source-code-for-the-book-s-examples-
+
 #ifndef CUDAERRORHANDLER_CUH
 #define CUDAERRORHANDLER_CUH
 

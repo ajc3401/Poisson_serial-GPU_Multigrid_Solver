@@ -1,3 +1,5 @@
+// Copyright 2022, Anthony Cooper, All rights reserved
+
 #include "CudaVector.cuh"
 #include "CudaVectorOperations.cuh"
 #include "cuda_runtime_api.h"
@@ -30,18 +32,6 @@ CudaVector<T>::CudaVector(std::initializer_list<T> init) : VectorBase<T>()
 	}
 	
 }
-//template <class T>
-//CudaVector<T>::CudaVector(const SerialVector<T>& serial_vector) :
-//	m_nalloc{ serial_vector.get_nalloc() },
-//	m_nelem{ serial_vector.get_nelem() },
-//	m_ptr{ CudaMemoryHandler<T>::allocate(serial_vector.get_nalloc()) }
-//{
-//	
-//	for (size_t i = 0; i < serial_vector.get_nelem(); i++)
-//	{
-//		m_ptr[i] = serial_vector.begin()[i];
-//	}
-//}
 
 template <class T>
 CudaVector<T>::CudaVector(const CudaVector<T>& copy) : VectorBase<T> ()
@@ -56,13 +46,6 @@ CudaVector<T>::CudaVector(const CudaVector<T>& copy) : VectorBase<T> ()
 template<class T>
 CudaVector<T>::CudaVector(CudaVector<T>&& move) noexcept
 {
-	/*m_nalloc = move.m_nalloc;
-	m_nelem = move.m_nelem;
-	m_ptr = move.m_ptr;
-
-	move.m_nalloc = 0;
-	move.m_nelem = 0;
-	move.m_ptr = nullptr;*/
 	swap(*this, move);
 }
 
@@ -104,29 +87,6 @@ CudaVector<T>& CudaVector<T>::operator-()
 	setNegative(this->m_ptr, this->m_nelem);
 	return *this;
 }
-//template <class U>
-//Vector< CudaType <U>> Vector< CudaType <U>>::operator+(const Vector< CudaType<U>> a, const Vector< CudaType<U>>& b)
-//{
-//	int N = rhs.m_nelem;
-//	assert(m_nelem == N);
-//	//U* tmp2 = static_cast<U*>(::operator new(N * sizeof(U)));
-//	Vector< CudaType <U>> tmp(N);
-//	VectorAddEqual<< <(N - 1) / BLOCK_SIZE + 1, BLOCK_SIZE >> > (this->m_ptr, rhs.m_ptr, tmp.m_ptr, N);
-//	
-//	cudaDeviceSynchronize();
-//	
-//	//for (size_t i = 0; i < N; i++)
-//	//{
-//	//	std::cout << tmp.m_ptr[i] << std::endl;
-//	//}
-//	//std::swap(this->m_ptr, tmp2);
-//	swap(*this, tmp);
-//	for (size_t i = 0; i < N; i++)
-//	{
-//		std::cout << this->m_ptr[i] << std::endl;
-//	}
-//	return *this;
-//}
 
 template <class T>
 CudaVector<T>& CudaVector<T>::operator+=(const VectorBase<T>& rhs)
@@ -137,9 +97,6 @@ CudaVector<T>& CudaVector<T>::operator+=(const VectorBase<T>& rhs)
 		throw std::invalid_argument("Cannot add a serial vector to a GPU vector");
 	else
 		(*this) += rhs;
-	//VectorAdd << <(rhs.m_nelem - 1) / BLOCK_SIZE + 1, BLOCK_SIZE >> > (this->m_ptr, rhs.m_ptr, rhs.m_nelem);
-
-
 
 	return *this;
 }
@@ -153,10 +110,6 @@ CudaVector<T>& CudaVector<T>::operator-=(const VectorBase<T>& rhs)
 		throw std::invalid_argument("Cannot add a serial vector to a GPU vector");
 	else
 		(*this) -= rhs;
-	//VectorAdd << <(rhs.m_nelem - 1) / BLOCK_SIZE + 1, BLOCK_SIZE >> > (this->m_ptr, rhs.m_ptr, rhs.m_nelem);
-
-
-
 	return *this;
 }
 
@@ -370,7 +323,7 @@ template<typename... Args> T& CudaVector<T>::emplace_back(Args&&... args)
 template<class T>
 void CudaVector<T>::reserve(const size_t _nalloc)
 {
-	//assert(_nalloc > m_nelem);
+	assert(_nalloc > m_nelem);
 	
 	CudaMemoryHandler<T>::deallocate(this->m_ptr);
 	this->m_ptr = nullptr;
@@ -379,16 +332,12 @@ void CudaVector<T>::reserve(const size_t _nalloc)
 	this->m_nalloc = _nalloc;
 
 	this->m_ptr = CudaMemoryHandler<T>::allocate(_nalloc);
-	//CudaMemoryHandler<T>::allocate(_nalloc, this->m_ptr);
 	
 }
 
 template<class T>
 void CudaVector<T>::resize(const size_t _nelem, const size_t _nalloc)
 {
-	std::cout << "this elem = " << this->m_nelem << std::endl;
-	std::cout << "nelem = " << _nelem << std::endl;
-	std::cout << "nalloc = " << _nalloc << std::endl;
 	// We only allow growing, not shrinking
 	assert((_nelem >= m_nelem) && (_nalloc >= m_nelem));
 
@@ -401,7 +350,6 @@ void CudaVector<T>::resize(const size_t _nelem, const size_t _nalloc)
 	for (size_t i = m_nelem; i < _nelem; i++)
 		tmp.emplace_back(0);
 	
-	//tmp.m_nelem = _nelem;
 
 	swap(tmp, *this);
 	
@@ -411,7 +359,6 @@ template<class T>
 void CudaVector<T>::resize(const size_t _nalloc)
 {
 	
-	//assert(_nalloc > this->m_nelem);
 	assert(_nalloc > this->m_nelem);
 
 	CudaVector<T> tmp(_nalloc);
@@ -466,9 +413,6 @@ void CudaVector<T>::display() const
 		std::cout << this->m_ptr[i] << std::endl;
 	}
 }
-
-
-//template Vector< CudaType<double>>::Vector(const size_t _nalloc);
 
 template class CudaVector<double>;
 template class CudaVector<float>;

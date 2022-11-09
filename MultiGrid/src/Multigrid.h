@@ -1,3 +1,5 @@
+// Copyright 2022, Anthony Cooper, All rights reserved
+
 #ifndef MULTIGRID_H
 #define MULTIGRID_H
 #include "../lib/Vector.h"
@@ -17,22 +19,17 @@ template <class T, class PDEType>
 class Multigrid
 {
 public:
-	//Multigrid(CRS_Matrix<T>& _L, CRS_Matrix<T>& _U, CRS_Matrix<T>& _Dinv, Vector<T>& _v, Vector<T>& _f, const size_t n_GS2, const size_t n_Jac, const size_t n_outer, const size_t _ncoarsen);
 	Multigrid(T h, size_t _nrank, size_t dim, const Vector<T>& seed, size_t _ncoarsen, const size_t n_GS2, const size_t n_Jac, const size_t n_outer, const T LBC = 0.0f, const T RBC = 0.0f);
 	~Multigrid();
-	//void V_Cycle(size_t coarsenIdx, CRS_Matrix<T>& _L, CRS_Matrix<T>& _U, CRS_Matrix<T>& _Dinv, Vector<T>& _v, Vector<T>& _f, const size_t n_GS2, const size_t n_Jac, const size_t n_outer);
 	void V_Cycle(size_t coarsenIdx);
 	void Solve();
 	// Based on coarsen index we get n where n-1 is the amount of non boundary points in the grid (1D only so far)
-	// Use these methods within a for loop over coarsenIdx
+	// Use these methods within a for loop over coarsenIdx.  Te
 	void Set_Restrictor(size_t coarsenIdx);
 	void Set_Interpolator(size_t coarsenIdx);
 	void Set_ALUDinv(size_t coarsenIdx);
 	void Set_VandF(size_t coarsenIdx, const Vector<T>& seed);
-	// This regenerates L, U, Dinv on a coarser grid
-	//void Restrict(size_t coarsenIdx, CRS_Matrix<T>& _L, CRS_Matrix<T>& _U, CRS_Matrix<T>& _Dinv);
-	// This regenerates L, U, Dinv on a finer grid
-	//void Prolongate(size_t coarsenIdx, CRS_Matrix<T>& _L, CRS_Matrix<T>& _U, CRS_Matrix<T>& _Dinv);
+	;
 private:
 	// The strategy is to preallocate/precompute all the needed vectors/matrices at every level of coarsening so the
 	// main algorithm focuses just on the linear algebra operations of smoothing, interpolating, and restricting.

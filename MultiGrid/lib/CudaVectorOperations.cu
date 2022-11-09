@@ -1,3 +1,5 @@
+// Copyright 2022, Anthony Cooper, All rights reserved
+
 #include "CudaVectorOperations.cuh"
 #include "CudaKernels.cu"
 #include "cuda_runtime_api.h"

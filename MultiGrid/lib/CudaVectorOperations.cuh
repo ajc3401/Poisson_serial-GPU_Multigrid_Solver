@@ -1,3 +1,5 @@
+// Copyright 2022, Anthony Cooper, All rights reserved
+
 #ifndef CUDAVECTOROPERATIONS_H
 #define CUDAVECTOROPERATIONS_H
 #include <string>

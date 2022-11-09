@@ -1,3 +1,5 @@
+// Copyright 2022, Anthony Cooper, All rights reserved
+
 #ifndef CRS_MATRIX_H
 #define CRS_MATRIX_H
 

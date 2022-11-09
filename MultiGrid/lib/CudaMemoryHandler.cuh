@@ -1,3 +1,5 @@
+// Copyright 2022, Anthony Cooper, All rights reserved
+
 #ifndef CUDAMEMORYHANDLER_CUH
 #define CUDAMEMORYHANDLER_CUH
 #include "device_launch_parameters.h"

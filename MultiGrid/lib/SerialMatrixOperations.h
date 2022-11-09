@@ -1,3 +1,5 @@
+// Copyright 2022, Anthony Cooper, All rights reserved
+
 #ifndef SERIALMATRIXOPERATIONS_H
 #define SERIALMATRIXOPERATIONS_H
 #include "VectorBase.h"

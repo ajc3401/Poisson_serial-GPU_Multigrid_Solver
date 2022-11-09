@@ -1,3 +1,5 @@
+// Copyright 2022, Anthony Cooper, All rights reserved
+
 #ifndef MATRIX_H
 #define MATRIX_H
 #include "Grid.h"

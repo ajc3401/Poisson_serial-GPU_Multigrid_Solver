@@ -1,3 +1,5 @@
+// Copyright 2022, Anthony Cooper, All rights reserved
+
 #include "Multigrid.h"
 #include <math.h>
 
@@ -142,9 +144,9 @@ void Multigrid<T, PDEType>::Set_Restrictor(size_t coarsenIdx)
 
 		pR->get_vecptr()->push_back(1.0f);
 	}
-	std::cout << "Restrictor = " << std::endl;
-	pR->display();
-	std::cout << std::endl;
+	//std::cout << "Restrictor = " << std::endl;
+	//pR->display();
+	//std::cout << std::endl;
 	m_restrictor[coarsenIdx] = new CRS_Matrix<T>(ncols * nrows, nrows, ncols);
 	m_restrictor[coarsenIdx]->convert_to_crs(*pR);
 }
@@ -167,9 +169,9 @@ void Multigrid<T, PDEType>::Set_Interpolator(size_t coarsenIdx)
 
 		
 	}
-	std::cout << "Interpolator = " << std::endl;
-	pR->display();
-	std::cout << std::endl;
+	//std::cout << "Interpolator = " << std::endl;
+	//pR->display();
+	//std::cout << std::endl;
 	m_interpolator[coarsenIdx] = new CRS_Matrix<T>(ncols * nrows, nrows, ncols);
 	m_interpolator[coarsenIdx]->convert_to_crs(*pR);
 }
@@ -188,32 +190,7 @@ void Multigrid<T, PDEType>::Solve()
 	*residual -= *m_f[0];
 	residual_l2norm = residual->l2norm();
 	std::cout << "The final l2 norm = is " << residual_l2norm << std::endl;
-	//	residual_l2norm = residual->l2norm();
-	//T residual_l2norm(0.0f);
-	//Vector<T>* residual = new Vector<T>(m_v[0]->get_grid());;
-	//for (size_t coarsenIdx = 0; coarsenIdx < m_ncoarsen; coarsenIdx++)
-	//{
-	//	V_Cycle(coarsenIdx);
-	//	// Get residual
-	//	if (coarsenIdx > 0)
-	//	{
-	//		size_t Npoints = m_v[coarsenIdx]->get_grid().get_totalnpoints();
-	//		residual->resize(Npoints, Npoints);
-	//	}
-	//	residual->sparse_mat_mul(*m_A[coarsenIdx], *m_v[coarsenIdx]);
-	//	*residual -= *m_f[coarsenIdx];
-	//	residual_l2norm = residual->l2norm();
-	//	std::cout << "The l2 norm at coarsenIdx = " << coarsenIdx << " is " << residual_l2norm << std::endl;
-
-	//	if (coarsenIdx > 0)
-	//	{
-	//		Vector<T> tmp(*m_v[coarsenIdx]);
-	//		//tmp.interpolate(tmp);
-	//		tmp.sparse_mat_mul(*m_interpolator[coarsenIdx], tmp);
-	//		*m_v[coarsenIdx-1] += tmp;
-	//	}
-
-	//}
+	
 }
 
 template<class T, class PDEType>
@@ -227,20 +204,11 @@ void Multigrid<T, PDEType>::V_Cycle(size_t coarsenIdx)
 	std::cout << "h = " << m_h << std::endl;
 	if (coarsenIdx == m_ncoarsen - 1)
 	{
-		std::cout << "LAST" << std::endl;
 		GS2(*m_A[coarsenIdx], * m_Dinv[coarsenIdx], *m_L[coarsenIdx], *m_U[coarsenIdx], *m_v[coarsenIdx], *m_f[coarsenIdx], m_nGS2, m_nJac, m_nouter);
-		std::cout << "LAST2" << std::endl;
-		//std::cout << "coarsenIdx = " << coarsenIdx - 1 << std::endl;
 	}
 		
 	else
 	{
-		/*std::cout << "At coarsenIdx = " << coarsenIdx << std::endl;
-		std::cout << "Dinv row = " << m_Dinv[coarsenIdx]->get_nrow() << std::endl;
-		std::cout << "L row = " << m_L[coarsenIdx]->get_nrow() << std::endl;
-		std::cout << "U row = " << m_U[coarsenIdx]->get_nrow() << std::endl;
-		std::cout << "v size = " << m_v[coarsenIdx]->get_grid().get_totalnpoints() << std::endl;
-		std::cout << "f size = " << m_f[coarsenIdx]->get_grid().get_totalnpoints() << std::endl;*/
 		
 		GS2(*m_A[coarsenIdx], *m_Dinv[coarsenIdx], *m_L[coarsenIdx], *m_U[coarsenIdx], *m_v[coarsenIdx], *m_f[coarsenIdx], m_nGS2, m_nJac, m_nouter);
 		// Calculate new f based on residual
@@ -248,15 +216,8 @@ void Multigrid<T, PDEType>::V_Cycle(size_t coarsenIdx)
 		res.sparse_mat_mul(*m_A[coarsenIdx], *m_v[coarsenIdx]);
 		res -= *m_f[coarsenIdx];
 		res = -res;
-		std::cout << "V cycle res = ";
-		res.display();
-		std::cout << std::endl;
-		// Set the new f to the restriction of the residual
+		
 		m_f[coarsenIdx + 1]->sparse_mat_mul(*m_restrictor[coarsenIdx],res);
-		std::cout << "V cycle f+1 = ";
-		m_f[coarsenIdx+1]->display();
-		std::cout << std::endl;
-		// Set the next layer of the solution vector to 0
 		m_v[coarsenIdx + 1]->set_to_number(0.0f);
 
 		
@@ -264,12 +225,8 @@ void Multigrid<T, PDEType>::V_Cycle(size_t coarsenIdx)
 		
 		// Correct v at current level from interpolation of v at the coarser level
 		Vector<T> tmp(m_v[coarsenIdx]->get_grid());
-		//tmp.interpolate(tmp);
-		std::cout << "Interpolator col = " << m_interpolator[coarsenIdx]->get_ncol() << std::endl;
-		std::cout << "tmp num of elem = " << tmp.get_vecptr()->get_nelem() << std::endl;
 		
 		tmp.sparse_mat_mul(*m_interpolator[coarsenIdx], *m_v[coarsenIdx+1]);
-		std::cout << "tmp num of elem = " << tmp.get_vecptr()->get_nelem() << std::endl;
 		*m_v[coarsenIdx] += tmp;
 
 		// Post smoothing

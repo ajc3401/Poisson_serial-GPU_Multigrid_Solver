@@ -191,9 +191,7 @@
     <ClCompile Include="src\PDE_Poisson.cpp" />
     <ClCompile Include="lib\SerialMatrixOperations.cpp" />
     <ClCompile Include="lib\SerialVector.cpp" />
-    <ClCompile Include="lib\SerialVectorOperations.cpp" />
     <ClCompile Include="lib\Vector.cpp" />
-    <ClCompile Include="lib\VectorBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\CRS_Matrix.h" />
@@ -230,7 +228,6 @@
     <ClInclude Include="src\PDE_Poisson.h" />
     <ClInclude Include="lib\SerialMatrixOperations.h" />
     <ClInclude Include="lib\SerialVector.h" />
-    <ClInclude Include="lib\SerialVectorOperations.h" />
     <ClInclude Include="lib\Vector.h" />
     <ClInclude Include="lib\VectorBase.h" />
   </ItemGroup>

@@ -1,3 +1,5 @@
+// Copyright 2022, Anthony Cooper, All rights reserved
+
 #ifndef VECTOR_H
 #define VECTOR_H
 #include "VectorBase.h"

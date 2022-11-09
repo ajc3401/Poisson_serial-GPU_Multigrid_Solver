@@ -1,3 +1,5 @@
+// Copyright 2022, Anthony Cooper, All rights reserved
+
 #include "CRS_Matrix.h"
 
 #ifdef __GPU__
@@ -63,7 +65,6 @@ CRS_Matrix<T>::CRS_Matrix(const CRS_Matrix<T>& copy) :
 	m_crsRowPtr = new SerialVector<int>(m_nrow);
 	m_crsValPtr = new SerialVector<T>(m_nNNZ);
 #endif
-	std::cout << "copy m_nNNZ = " << copy.m_nNNZ << std::endl;
 	for (size_t i = 0; i < copy.m_crsColPtr->get_nelem(); i++)
 	{
 		m_crsColPtr->push_back(copy.m_crsColPtr->begin()[i]);
@@ -76,7 +77,6 @@ CRS_Matrix<T>::CRS_Matrix(const CRS_Matrix<T>& copy) :
 	{
 		m_crsValPtr->push_back(copy.m_crsValPtr->begin()[i]);
 	}
-	std::cout << "Num of elems is " << this->m_crsRowPtr->get_nelem() << std::endl;
 	
 
 
@@ -85,7 +85,6 @@ CRS_Matrix<T>::CRS_Matrix(const CRS_Matrix<T>& copy) :
 template<class T>
 CRS_Matrix<T>::CRS_Matrix(CRS_Matrix<T>&& move) noexcept
 {
-	std::cout << "Move" << std::endl;
 	swap(*this, move);
 }
 

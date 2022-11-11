@@ -11,7 +11,14 @@ The smoothing algorithm used was introduced in a recent conference paper<sup>2</
 Finally, although the code was built to solve Poisson's equation, the multigrid solver can be easily adapted to any PDE to be added in the future.
 
 ## Building the code ##
-Currently only a Visual Studio solution file is available but a CMake file will be added in the near future.
+In the highest level directory type the following:
+```
+cmake -S "" -B "CONFIG"
+cd CONFIG
+cmake --build .
+```
+where CONFIG is either GPU or Serial depending on whether you want to build the GPU or CPU implementation.
+**NOTE:** Only the GPU version is functional at the moment.
 
 ## Running the code ##
 An example of the interface is given below

@@ -18,6 +18,7 @@ cd CONFIG
 cmake --build .
 ```
 where CONFIG is either GPU or Serial depending on whether you want to build the GPU or CPU implementation.
+
 **NOTE:** Only the GPU version is functional at the moment.
 
 ## Running the code ##

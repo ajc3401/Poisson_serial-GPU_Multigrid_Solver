@@ -21,8 +21,7 @@ set(CMAKE_CONFIGURATION_TYPES
     "Debug"
     "Release"
     "Serial"
-    "Serial2"
-    "Serial3"
+    "GPU"
     CACHE STRING "" FORCE
 )
 
@@ -98,5 +97,3 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 # Sub-projects
 ################################################################################
 add_subdirectory(MultiGrid)
-
-#add_executable(${PROJECT_NAME} main.cpp)

@@ -4,7 +4,7 @@
 #define GRID_H
 #include <iostream>
 #include <vector>
-
+#include <cmath>
 // Class that describes the dimension and number of points on the grid.
 //
 // TODO: Needs to also have information on X,Y,Z dimensions in the case of rectangular grids.

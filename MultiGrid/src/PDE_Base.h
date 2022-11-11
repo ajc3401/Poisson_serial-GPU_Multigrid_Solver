@@ -6,7 +6,7 @@
 #include "../lib/Matrix.h"
 #include "../lib/CRS_Matrix.h"
 #include "../lib/Grid.h"
-
+#include <memory>
 template<class T>
 class PDE_Base
 {

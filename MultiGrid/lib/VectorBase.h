@@ -3,6 +3,7 @@
 #ifndef VECTORBASE_H
 #define VECTORBASE_H
 #include <assert.h>
+#include <stddef.h>
 template<class T>
 class VectorBase
 {

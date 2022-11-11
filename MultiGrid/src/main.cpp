@@ -37,7 +37,7 @@ int main()
 	size_t n_outer{ 5 };
 	size_t dim{ 1 };
 
-	float pi = std::numbers::pi_v<float>;
+	const float pi = 3.14159265358979323846;
 	
 	Grid grid(1, std::vector<size_t>{n_rank - 1});
 

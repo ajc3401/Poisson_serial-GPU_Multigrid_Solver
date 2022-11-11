@@ -37,7 +37,7 @@ multigrid.Solve(); \\ solves multigrid
   ```
 ## Current TODO ##
 1. Fix bug in CPU version
-2. Create CMake file
+
 
 ## Future TODO ##
 1. Allow flexible choice of smoothing algorithm

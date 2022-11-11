@@ -7,7 +7,8 @@
 #include "VectorBase.h"
 #include "Matrix.h"
 
-// Class to hold sparse matrices in CRS format.
+// Class to hold sparse matrices in CRS format.  Since the matrix form of the Poisson equation leads to a highly sparse matrix,
+// the use of a sparse matrix saves a lot of memory.
 template <class T>
 class CRS_Matrix
 {
@@ -33,9 +34,7 @@ public:
 	void tranpose(const CRS_Matrix<T>& input);
 	void invert_elements();
 	// Obtain critical parts of matrix.
-	/*void get_diagonal(const CRS_Matrix<T>& inmat);
-	void get_lower_triangular(const CRS_Matrix<T>& inmat);
-	void get_upper_triangular(const CRS_Matrix<T>& inmat);*/
+	
 
 	//void mat_vec_mul(const CRS_Matrix<T>& a, const Vector<T>& b);
 

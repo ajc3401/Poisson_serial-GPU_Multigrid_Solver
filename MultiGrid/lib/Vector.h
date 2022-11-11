@@ -8,7 +8,7 @@
 #include "CRS_Matrix.h"
 #include <span>
 
-
+// Mathematical vector class (as opposed to the over vector classes which serves as the underlying data structure)
 template<class T>
 class Vector
 {

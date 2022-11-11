@@ -4,6 +4,7 @@
 #define CUDAVECTOROPERATIONS_H
 #include <string>
 
+// Defines all vector operations on the GPU.  References kernel which performs that actual operation.
 template<class T> void sumVectors(T* a, const T* b, size_t N);
 template<class T> void subtractVectors(T* a, const T* b, size_t N);
 template<class T> void scalarVectorMultiply(T* a, const T b, size_t N);

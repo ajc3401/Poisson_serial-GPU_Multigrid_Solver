@@ -3,6 +3,7 @@
 #ifndef SERIALMATRIXOPERATIONS_H
 #define SERIALMATRIXOPERATIONS_H
 #include "VectorBase.h"
+// Define all the matrix operations for the CPU implementation
 
 // These assume a column major layout of the matrix
 template <class T> void matrixMultiply(const T* a, const T* b, T* c, size_t N, size_t M, size_t K);

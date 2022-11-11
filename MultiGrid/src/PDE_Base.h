@@ -7,16 +7,15 @@
 #include "../lib/CRS_Matrix.h"
 #include "../lib/Grid.h"
 #include <memory>
+
+// Base class for any PDE to inherit from.  Members are sparse matrices where A is the matrix that defined the problem Av = f, L is the lower triangular part of A
+// U is the upper triangular part of A, and Dinv is the inverse of the diagonal of A.  We instantiate these members seperately since they are needed in the smoothing
+// algorithm and we wish to avoid obtaining them within the multigrid scheme.
 template<class T>
 class PDE_Base
 {
 public:
 	PDE_Base(Grid _grid) : 
-		//m_npoints { _grid.get_totalnpoints() },
-		//m_A(m_npoints - 1, m_npoints, m_npoints),
-		//m_L(m_npoints - 1, m_npoints, m_npoints),  // NNZ will be total grid points - 1
-		//m_U(m_npoints - 1, m_npoints, m_npoints),
-		//m_Dinv(m_npoints - 1, m_npoints, m_npoints)
 		m_A(_grid.get_totalnpoints() - 1, _grid.get_totalnpoints(), _grid.get_totalnpoints()),
 		m_L(_grid.get_totalnpoints() - 1, _grid.get_totalnpoints(), _grid.get_totalnpoints()),  // NNZ will be total grid points - 1
 		m_U(_grid.get_totalnpoints() - 1, _grid.get_totalnpoints(), _grid.get_totalnpoints()),

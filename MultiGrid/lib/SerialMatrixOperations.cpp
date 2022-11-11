@@ -56,16 +56,12 @@ template <class T> void sparseMatrixTranspose(VectorBase<T>* resval, VectorBase<
         // create incremental sum
         resrow->begin()[i] += resrow->begin()[i - 1];
     }
-    //std::cout << "in_NNZ = " << in_NNZ << std::endl;
-    //std::cout << "inrow begin 11 = " << inrow->begin()[in_NNZ] << std::endl;
+    
     for (int i = 0; i < in_num_rows; ++i) 
     {
         for (size_t j = inrow->begin()[i]; j < inrow->begin()[i + 1]; ++j) {
             // calculate index to transposed matrix at which we should place current element, and at the same time build final rowPtr
-            /*std::cout << "inrow at i = " << inrow->begin()[i] << std::endl;
-            std::cout << "j is " << j << std::endl;
-            std::cout << "i is" << i << std::endl;
-            std::cout << "incol is " << incol->begin()[j] + 1 << std::endl;*/
+           
             const size_t new_index = resrow->begin()[incol->begin()[j] + 1]++;
             resval->begin()[new_index] = inval->begin()[j];
             rescol->begin()[new_index] = i;
@@ -81,13 +77,8 @@ template<class T> void sparseMatrixVectorMultiply(T* Aval, int* Arow, int* Acol,
     for (size_t i = 0; i < A_num_cols; i++)
     {
         y[i] = 0.0;
-        std::cout << "i = " << i << std::endl;
         for (size_t j = Arow[i]; j < Arow[i + 1]; j++)
         {
-            //std::cout << "inrow at i = " << inrow->begin()[i] << std::endl;
-            
-            std::cout << "Aval at j " << Aval[j] << std::endl;
-            std::cout << "x at Acolj " << x[Acol[j]] << std::endl;
             y[i] += Aval[j] * x[Acol[j]];
         }
     }
@@ -156,6 +147,7 @@ template <class T> void getUpperTriangular(T* a, const T* b, size_t offset, size
 
 }
 
+// CURRENTLY UNFINISHED
 template <class T> void sparseMatrixMatrixMultiply(T* Aval, int* Arow, int* Acol, T* Bval, int* Brow, int* Bcol,
     T* Cval, int* Crow, int* Ccol, size_t A_num_rows, size_t A_num_cols, size_t A_NNZ,
     size_t B_num_rows, size_t B_num_cols, size_t B_NNZ, size_t& C_num_rows, size_t& C_num_cols, size_t& C_NNZ)

@@ -9,12 +9,18 @@
 #include "PDE_Base.h"
 #include "PDE_Poisson.h"
 #include "Iterative_Methods.h"
-// Make all PDE classes friends of multigrid to access its private members
+// Class that handles the solving of the multigrid for a given PDE.
+// 
+// The strategy is to preallocate/precompute all the needed vectors/matrices at every level of coarsening so the
+// main algorithm focuses just on the linear algebra operations of smoothing, interpolating, and restricting.
+// We could also store interpolators/restrictors as matrices instead of using the kernels currently available.
+// 
+// We store the solution vector and right hand vector as std vectors of Vector pointers where the std vector is of length m_ncoarsen to respresent
+// all the levels in the multigrid.
+//
+// Thought: Make all PDE classes friends of multigrid to access its private members
 // This class has no data members since all relevant data will be initialized by
-// the PDE children classes
-
-// Restricting L, U, Dinv:
-// Like v and f, we store 
+// the PDE children classes.
 template <class T, class PDEType>
 class Multigrid
 {
@@ -31,12 +37,7 @@ public:
 	void Set_VandF(size_t coarsenIdx, const Vector<T>& seed);
 	;
 private:
-	// The strategy is to preallocate/precompute all the needed vectors/matrices at every level of coarsening so the
-	// main algorithm focuses just on the linear algebra operations of smoothing, interpolating, and restricting.
-	// We could also store interpolators/restrictors as matrices instead of using the kernels currently available.
-	// 
-	// We store the solution vector and right hand vector as std vectors of Vector pointers where the std vector is of length m_ncoarsen to respresent
-	// all the levels in the multigrid.
+	
 	std::vector<Vector<T>*> m_v;
 	std::vector<Vector<T>*> m_f;
 	// We store restriction matrices for each level.  The interpolators could be the tranpose but transposing CSR matrices

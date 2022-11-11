@@ -5,7 +5,7 @@
 #include "../lib/Vector.h"
 #include "../lib/Matrix.h"
 #include "../lib/CRS_Matrix.h"
-
+// Defines all smoothing algorithms to solve a matrix equation
 // This solves Av = f using a two-stage Gauss Seidel relaxation.  This method uses only D^-1 (inv diag), U (upper triangular) and L (lower triangular) where
 // A = (L + D + U)
 // CRS formatted matrixes are used because the matrices are sparse for the Poisson equation.

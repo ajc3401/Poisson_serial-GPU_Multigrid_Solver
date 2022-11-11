@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Handles possible errors in CUDA operations.
 static void HandleError(cudaError_t err,
     const char* file,
     int line) {

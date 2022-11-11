@@ -5,6 +5,8 @@
 #include <assert.h>
 #include <stddef.h>
 template<class T>
+
+// Base vector class which is a parent class to both CPU and GPU vector classes (NOT mathematical vector)
 class VectorBase
 {
 public:

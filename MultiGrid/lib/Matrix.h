@@ -5,7 +5,7 @@
 #include "Grid.h"
 #include "VectorBase.h"
 
-
+// Dense matrix class
 template <class T>
 class Matrix
 {
